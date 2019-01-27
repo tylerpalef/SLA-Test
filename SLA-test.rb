@@ -3,8 +3,10 @@ def web_edit(web_requested_assigned, web_requested_completed)   # Takes two numb
   turnaround_time = (web_requested_assigned + web_requested_completed)
   if turnaround_time >= 48
     p "SLA failure [With no review and assuming no error]"
-  else
+  elsif turnaround_time > 0 && turnaround_time < 48
     p "SLA success [With no review and assuming no error]"
+  else
+    p "Error, please review the values used."
   end
 end
 
@@ -14,10 +16,12 @@ end
 # Regarding web edits done with a review, after the initial email is sent to the client
 def web_edit_with_review(web_requested_assigned, web_requested_completed, web_edit_review, web_edit_update, client_review)
   turnaround_time = (web_requested_assigned + web_requested_completed)
-  if turnaround_time >= 48 ||  turnaround_time + (web_edit_review + web_edit_update)  >= (turnaround_time + client_review)
+  if turnaround_time >= 48 ||  turnaround_time + (web_edit_review + web_edit_update) >= (turnaround_time + client_review)
     p "SLA failure [With review]" # This is a failure because either we don't finish the edit on time, or we finish with an error the client sees.
-  else
+  elsif turnaround_time < 48 && turnaround_time + (web_edit_review + web_edit_update) < (turnaround_time + client_review)
     p "SLA success [With review]"
+  else
+    p "Error, please review the values used."
   end
 end
 
@@ -29,8 +33,10 @@ def web_edit_with_planned_review(web_requested_assigned, web_requested_completed
   turnaround_time = (web_requested_assigned + web_requested_completed + web_edit_review + web_edit_update)
   if turnaround_time >= 48 # No longer need to worry about the condition of clients seeing incorrect edits
     p "SLA failure [With planned review]"
-  else
+  elsif turnaround_time > 0 && turnaround_time < 48
     p "SLA success [With planned review]"
+  else
+    p "Error, please review the values used."
   end
 end
 
