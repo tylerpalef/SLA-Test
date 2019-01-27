@@ -2,9 +2,9 @@
 def web_edit(web_requested_assigned, web_requested_completed)   # Takes two numbers, adds them, and confirms if the edit was completed within SLA or not.
   turnaround_time = (web_requested_assigned + web_requested_completed)
   if turnaround_time >= 48
-    p "SLA failure"
+    p "SLA failure [With no review and assuming no error]"
   else
-    p "SLA success"
+    p "SLA success [With no review and assuming no error]"
   end
 end
 
@@ -15,9 +15,9 @@ end
 def web_edit_with_review(web_requested_assigned, web_requested_completed, web_edit_review, web_edit_update, client_review)
   turnaround_time = (web_requested_assigned + web_requested_completed)
   if turnaround_time >= 48 ||  turnaround_time + (web_edit_review + web_edit_update)  >= (turnaround_time + client_review)
-    p "SLA failure" # This is a failure because either we don't finish the edit on time, or we finish with an error the client sees.
+    p "SLA failure [With review]" # This is a failure because either we don't finish the edit on time, or we finish with an error the client sees.
   else
-    p "SLA success"
+    p "SLA success [With review]"
   end
 end
 
@@ -28,8 +28,11 @@ end
 def web_edit_with_planned_review(web_requested_assigned, web_requested_completed, web_edit_review, web_edit_update)
   turnaround_time = (web_requested_assigned + web_requested_completed + web_edit_review + web_edit_update)
   if turnaround_time >= 48 # No longer need to worry about the condition of clients seeing incorrect edits
-    p "failure"
+    p "SLA failure [With planned review]"
   else
-    p "success"
+    p "SLA success [With planned review]"
   end
 end
+
+
+# web_edit_with_planned_review(12, 4, 3, 2)
