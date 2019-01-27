@@ -1,6 +1,6 @@
 # Regarding turnaround time... in a perfect world without a need for secondary review
 def web_edit(web_requested_assigned, web_requested_completed)   # Takes two numbers, adds them, and confirms if the edit was completed within SLA or not.
-  turnaround_time = (web_requested_assigned + web_requested_received)
+  turnaround_time = (web_requested_assigned + web_requested_completed)
   if turnaround_time >= 48
     puts "SLA failure"
   else
@@ -8,7 +8,7 @@ def web_edit(web_requested_assigned, web_requested_completed)   # Takes two numb
   end
 end
 
-
+# web_edit(5, 2)
 
 #
 # # Regarding web edits done with a review, after the initial email is sent to the client
